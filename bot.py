@@ -31,10 +31,7 @@ async def on_guild_channel_create(channel:discord.abc.GuildChannel):
     print('Channel created')
     print(channel.name)
 
-@bot.event
-async def on_guild_channel_delete(channel:discord.abc.GuildChannel):
-    print('Channel deleted')
-    print(channel.name)
+
 
 @bot.event
 async def on_guild_role_create(role:discord.Role):
