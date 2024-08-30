@@ -2,29 +2,30 @@ import discord
 from discord.ext import commands
 from datetime import timedelta
 from discord import app_commands
+from bot import MyBot
 
 class Mod(commands.Cog):
-    def __init__(self, bot:commands.Bot):
+    def __init__(self, bot:MyBot):
         self.bot = bot
     
     @app_commands.command()
-    @commands.has_permissions(kick_members=True)
-    @commands.bot_has_permissions(kick_members=True)
+    @app_commands.checks.has_permissions(kick_members=True)
+    @app_commands.checks.bot_has_permissions(kick_members=True)
     async def kick(self,interaction:discord.Interaction,member:discord.Member,*,reason:str):
         """Kick a member from the server"""
         await member.kick(reason=reason)
         await interaction.response.send_message(f"{member.mention} has been kicked from the server for {reason}")
     
     @app_commands.command()
-    @commands.has_permissions(ban_members=True)
-    @commands.bot_has_permissions(ban_members=True)
+    @app_commands.checks.has_permissions(kick_members=True)
+    @app_commands.checks.bot_has_permissions(kick_members=True)
     async def ban(self,interaction:discord.Interaction,member:discord.Member,*,reason:str):
         """Ban a member from the server"""
         await member.ban(reason=reason)
         await interaction.response.send_message(f"{member.mention} has been banned from the server for {reason}")
 
     @app_commands.command()
-    @commands.has_permissions(kick_members=True)
+    @app_commands.checks.has_permissions(kick_members=True)
     async def warn(self, interaction:discord.Interaction, member:discord.Member,*,reason:str):
         """Warn a member"""
         await interaction.response.send_message(f"{member.mention} has been warned for {reason}")
@@ -37,7 +38,7 @@ class Mod(commands.Cog):
         await interaction.response.send_message(f"{member.mention} has been timed out for {minutes} minutes for {reason}")
 
     @app_commands.command()
-    @commands.has_permissions(ban_members=True)
+    @app_commands.checks.has_permissions(kick_members=True)
     async def dm(self, interaction:discord.Interaction, member:discord.Member,*,message:str):
         """Send a direct message to a member"""
         await member.send(message)  
